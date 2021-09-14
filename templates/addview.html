@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="mt-5">Add Expense</h3>
+            <form action="/addview" method="POST">
+               <div class="form-group">
+                    <label for="Date"></label>
+                    <input class="form-control" type="date" name="date" id="date">
+               </div>
+               <div class="form-group">
+                    <label for="">Expense Name</label>
+                    <input class="form-control" type="text" name="expensename" id="expensename">
+                   
+               </div>
+               <div class="form-group">
+                    <label for="">Expense Amount</label>
+                    <input class="form-control" type ="text" name="amount" id="amount">
+                   
+               </div>
+               <div class="form-group">
+                    <label for="">Expense Category</label>
+                    <select class="form-control" name="category" id="category">
+                        <option value="food">Food</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="business">Business</option>
+                        <option value="other">Other</option>
+                    </select>
+                   
+               </div>
+                 <input class="btn btn-danger" class="form-control" type="submit" value="Add" id="">
+            </form>
+        
+        </div>
+    </div>
+    <h3 class="mt-5">View Expenses</h3>
+    {% for expense in expenses %}
+    <div class="row">
+        <div class="col-md-12">
+            
+            <div class="card shadow mb-1 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        
+                        <div class="col-md-2">{{expense.expensename}} </div>
+                        <div class="col-md-2">{{expense.amount}}</div>
+                        <div class="col-md-2">{{expense.date}}</div>
+                        <div class="col-md-2">
+                            <span class="badge badge-primary">{{expense.category}}</span>
+                        </div>
+                        <div class="col-md-2">
+                             <a href="updateexpense/{{expense.id}}" class="btn btn-sm btn-success">Edit</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="delete/{{expense.id}}" class="btn btn-sm btn-danger">Delete</a>
+
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="mt-5">Expense Breakdown</h3>
+
+            <div class="card shadow mb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Food</div>
+                        <div id="tfood" class="col-md-6">{{t_food}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Entertainment</div>
+                        <div id="tentertainment" class="col-md-6">{{t_entertainment}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Business</div>
+                        <div id="tbusiness" class="col-md-6">{{t_business}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Other</div>
+                        <div id="tother" class="col-md-6">{{t_other}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-2 bg-white rounded">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">Total</div>
+                        <div class="col-md-6">{{total}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <h3 class="mt-5">Expense Breakdown</h3>
+            <canvas id="myChart" width="400" height="400"></canvas>
+<script>
+    let food = document.getElementById('tfood').innerHTML
+    let entertainment = document.getElementById('tentertainment').innerHTML
+    let business = document.getElementById('tbusiness').innerHTML
+    let other = document.getElementById('tother').innerHTML
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Food', 'Entertainment', 'Business', 'Other'],
+        datasets: [{
+            label: '# of Votes',
+            data: [food,entertainment,business,other],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+ 
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

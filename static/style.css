@@ -1,0 +1,19 @@
+:root {
+  --blue: #0188df;
+  --black: #354046;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+.background-hm {
+  background: url("https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80"),
+    linear-gradient(var(--black), var(--black)) no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+}
+.para {
+  color: white;
+  line-height: 1.5;
+}
